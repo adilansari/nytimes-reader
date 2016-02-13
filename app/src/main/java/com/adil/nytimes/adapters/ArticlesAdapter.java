@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.adil.nytimes.R;
 import com.adil.nytimes.models.Article;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         article = listOfArticles.get(position);
         holder.tvArticleSnippet.setText(article.getSnippet());
-//        holder.ivArticleThumbnail
+        if (article.getSqThumbnailUrl() != null){
+            Picasso.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
+        }
     }
 
     @Override

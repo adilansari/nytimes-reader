@@ -1,6 +1,8 @@
 package com.adil.nytimes.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,8 @@ import butterknife.ButterKnife;
 public class SearchActivity extends AppCompatActivity {
 
     @Bind(R.id.rvArticles) RecyclerView rvArticles;
+
+
     private NYTimesApiClient apiClient;
     public static ArticlesAdapter articlesAdapter;
 
@@ -36,10 +40,11 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         articlesAdapter = new ArticlesAdapter(new ArrayList<Article>());
         rvArticles.setAdapter(articlesAdapter);
         rvArticles.setLayoutManager(layoutManager);
+        rvArticles.setHasFixedSize(true);
     }
 
     @Override
@@ -47,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+
         final SearchView searchView =  (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -64,6 +70,23 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        MenuItem filterButton = menu.findItem(R.id.action_search_filter_button);
+        filterButton.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                showSearchSettingsDialog();
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void showSearchSettingsDialog(){
+        FragmentActivity fragmentActivity = (FragmentActivity) this;
+        FragmentManager fm = fragmentActivity.getSupportFragmentManager();
+        SearchSettingsFragment settingsDialog = SearchSettingsFragment.newInstance();
+        settingsDialog.show(fm, "tag");
     }
 }
