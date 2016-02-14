@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 public class SearchActivity extends AppCompatActivity {
 
     @Bind(R.id.rvArticles) RecyclerView rvArticles;
+    public static MenuItem filterButton;
 
 
     private NYTimesApiClient apiClient;
@@ -57,8 +58,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // callback goes here to perform query
-                apiClient = new NYTimesApiClient();
+                apiClient = new NYTimesApiClient(getApplicationContext());
                 apiClient.fetchArticles(query);
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
                 searchView.clearFocus();
@@ -71,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        MenuItem filterButton = menu.findItem(R.id.action_search_filter_button);
+        filterButton = menu.findItem(R.id.action_search_filter_button);
         filterButton.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

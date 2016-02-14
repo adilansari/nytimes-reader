@@ -42,6 +42,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         article = listOfArticles.get(position);
         holder.tvArticleSnippet.setText(article.getSnippet());
+        holder.ivArticleThumbnail.setImageResource(0);
         if (article.getSqThumbnailUrl() != null){
             Picasso.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
         }

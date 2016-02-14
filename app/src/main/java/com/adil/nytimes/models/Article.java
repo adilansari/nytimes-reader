@@ -1,7 +1,5 @@
 package com.adil.nytimes.models;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,7 +69,6 @@ public class Article {
                 article.setSqThumbnailUrl(imgUrl);
             }
         }
-        Log.i(TAG, article.getSnippet() +"\t"+ article.getWebUrl() +"\t"+ article.getSqThumbnailUrl() +"\t"+ article.getWideThumbnailUrl());
         return article;
     }
 
