@@ -67,10 +67,14 @@ public class Article implements Parcelable {
         JSONArray images = jsonObject.getJSONArray("multimedia");
         for (int i = 0; i < images.length(); i++){
             JSONObject img = images.getJSONObject(i);
+            if(!img.has("url"))
+                continue;
+
             String imgUrl = "http://www.nytimes.com/" + img.getString("url");
-            if (img.getString("subtype").equals("wide")){
+
+            if (img.has("subtype") && img.getString("subtype").equals("wide")){
                 article.setWideThumbnailUrl(imgUrl);
-            } else if (img.getString("subtype").equals("thumbnail")){
+            } else if (img.has("subtype") && img.getString("subtype").equals("thumbnail")){
                 article.setSqThumbnailUrl(imgUrl);
             }
         }

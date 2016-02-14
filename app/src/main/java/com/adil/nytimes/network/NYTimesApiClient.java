@@ -7,6 +7,7 @@ import android.util.Log;
 import com.adil.nytimes.activities.SearchActivity;
 import com.adil.nytimes.models.Article;
 import com.adil.nytimes.models.Settings;
+import com.adil.nytimes.utils.NetworkUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -40,6 +41,8 @@ public class NYTimesApiClient extends ContextWrapper{
     public void fetchArticles(String query, int page){
         if (page == 0)
             SearchActivity.articlesAdapter.clearData();
+
+        NetworkUtils.verifyConnectivity(getApplicationContext());
 
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(getUri(query, page), null, new JsonHttpResponseHandler(){

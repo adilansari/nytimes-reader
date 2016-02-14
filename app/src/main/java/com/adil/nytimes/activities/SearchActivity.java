@@ -20,6 +20,7 @@ import com.adil.nytimes.interfaces.EndlessRecyclerViewScrollListener;
 import com.adil.nytimes.models.Article;
 import com.adil.nytimes.models.Settings;
 import com.adil.nytimes.network.NYTimesApiClient;
+import com.adil.nytimes.utils.NetworkUtils;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         filter = Settings.getInstance(this);
+        NetworkUtils.verifyConnectivity(this);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         articlesAdapter = new ArticlesAdapter(new ArrayList<Article>());
