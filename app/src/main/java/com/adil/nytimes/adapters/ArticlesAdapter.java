@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.adil.nytimes.R;
 import com.adil.nytimes.activities.ArticleActivity;
 import com.adil.nytimes.models.Article;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import org.parceler.Parcels;
 
@@ -35,9 +35,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     public void addArticles(List<Article> articlesList){
-        int curSize = this.getItemCount();
-        listOfArticles.addAll(articlesList);
-        this.notifyItemRangeInserted(curSize, this.getItemCount()-1);
+        if (articlesList.size() > 0) {
+            int curSize = this.getItemCount();
+            listOfArticles.addAll(articlesList);
+            notifyItemRangeInserted(curSize, this.getItemCount() - 1);
+        }
     }
 
     public void clearData(){
@@ -59,7 +61,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         holder.tvArticleSnippet.setText(article.getSnippet());
         holder.ivArticleThumbnail.setImageResource(0);
         if (article.getSqThumbnailUrl() != null){
-            Picasso.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
+//            Picasso.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
+            Glide.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
         }
     }
 

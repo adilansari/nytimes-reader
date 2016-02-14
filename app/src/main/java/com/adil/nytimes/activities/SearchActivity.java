@@ -74,7 +74,7 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 apiClient = new NYTimesApiClient(getApplicationContext());
                 apiClient.fetchArticles(query, 0);
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Searching for "+ query, Toast.LENGTH_SHORT).show();
                 searchView.clearFocus();
                 return false;
             }

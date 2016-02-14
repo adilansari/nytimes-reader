@@ -3,6 +3,7 @@ package com.adil.nytimes.network;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.adil.nytimes.activities.SearchActivity;
 import com.adil.nytimes.models.Article;
@@ -51,6 +52,9 @@ public class NYTimesApiClient extends ContextWrapper{
                 super.onSuccess(statusCode, headers, response);
                 try {
                     listOfArticles = Article.fromJson(response.getJSONObject("response").getJSONArray("docs"));
+                    if(listOfArticles.size() == 0)
+                        Toast.makeText(getApplicationContext(), "No results found, try changing search filter.", Toast.LENGTH_LONG).show();
+
                     SearchActivity.articlesAdapter.addArticles(listOfArticles);
                 } catch (JSONException e) {
                     e.printStackTrace();
