@@ -1,15 +1,20 @@
 package com.adil.nytimes.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adil.nytimes.R;
+import com.adil.nytimes.activities.ArticleActivity;
 import com.adil.nytimes.models.Article;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -21,7 +26,7 @@ import butterknife.ButterKnife;
  */
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
 
-    private List<Article> listOfArticles;
+    private static List<Article> listOfArticles;
     private Article article;
 
 
@@ -53,14 +58,23 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         return listOfArticles.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
 
         @Bind(R.id.tvArticleSnippet) TextView tvArticleSnippet;
         @Bind(R.id.ivArticleThumbnail) ImageView ivArticleThumbnail;
 
         public ViewHolder(View itemView){
             super(itemView);
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Article article = listOfArticles.get(getLayoutPosition());
+            Intent i = new Intent(v.getContext(), ArticleActivity.class);
+            i.putExtra("article", Parcels.wrap(article));
+            v.getContext().startActivity(i);
         }
     }
 

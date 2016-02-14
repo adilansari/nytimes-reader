@@ -1,8 +1,11 @@
 package com.adil.nytimes.models;
 
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +13,9 @@ import java.util.List;
 /**
  * Created by adil on 2/11/16.
  */
-public class Article {
+
+@Parcel
+public class Article implements Parcelable {
 
     private static final String TAG = Article.class.getSimpleName();
 
@@ -83,4 +88,36 @@ public class Article {
         return listOfArticles;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeString(this.snippet);
+        dest.writeString(this.sqThumbnailUrl);
+        dest.writeString(this.wideThumbnailUrl);
+        dest.writeString(this.webUrl);
+    }
+
+    public Article() {
+    }
+
+    protected Article(android.os.Parcel in) {
+        this.snippet = in.readString();
+        this.sqThumbnailUrl = in.readString();
+        this.wideThumbnailUrl = in.readString();
+        this.webUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {
+        public Article createFromParcel(android.os.Parcel source) {
+            return new Article(source);
+        }
+
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 }

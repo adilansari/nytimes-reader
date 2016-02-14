@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.adil.nytimes.R;
 import com.adil.nytimes.adapters.ArticlesAdapter;
-import com.adil.nytimes.listeners.EndlessRecyclerViewScrollListener;
+import com.adil.nytimes.interfaces.EndlessRecyclerViewScrollListener;
 import com.adil.nytimes.models.Article;
 import com.adil.nytimes.network.NYTimesApiClient;
 
