@@ -49,6 +49,11 @@ public class Settings {
         edit.apply();
     }
 
+    public void setLastQuery(String query){
+        edit.putString("query", query);
+        edit.apply();
+    }
+
     public boolean getFilterEnabled(){
         return prefs.getBoolean("filterEnabled", false);
     }
@@ -83,5 +88,8 @@ public class Settings {
         return SortOrder.get(getSortOrder());
     }
 
+    public String getLastQuery(){
+        return prefs.getString("query", "");
+    }
 }
 

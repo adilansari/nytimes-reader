@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.adil.nytimes.R;
 import com.adil.nytimes.adapters.ArticlesAdapter;
+import com.adil.nytimes.listeners.EndlessRecyclerViewScrollListener;
 import com.adil.nytimes.models.Article;
 import com.adil.nytimes.network.NYTimesApiClient;
 
@@ -27,6 +28,7 @@ import butterknife.ButterKnife;
 public class SearchActivity extends AppCompatActivity {
 
     @Bind(R.id.rvArticles) RecyclerView rvArticles;
+    MenuItem searchItem;
     public static MenuItem filterButton;
 
 
@@ -46,20 +48,27 @@ public class SearchActivity extends AppCompatActivity {
         rvArticles.setAdapter(articlesAdapter);
         rvArticles.setLayoutManager(layoutManager);
         rvArticles.setHasFixedSize(true);
+        rvArticles.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                apiClient = new NYTimesApiClient(getApplicationContext());
+                apiClient.fetchArticles(page);
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem = menu.findItem(R.id.action_search);
 
         final SearchView searchView =  (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 apiClient = new NYTimesApiClient(getApplicationContext());
-                apiClient.fetchArticles(query);
+                apiClient.fetchArticles(query, 0);
                 Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
                 searchView.clearFocus();
                 return false;

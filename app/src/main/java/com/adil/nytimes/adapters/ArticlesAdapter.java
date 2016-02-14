@@ -65,7 +65,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     public void addArticles(List<Article> articlesList){
+        int curSize = this.getItemCount();
         listOfArticles.addAll(articlesList);
-        this.notifyDataSetChanged();
+        this.notifyItemRangeInserted(curSize, this.getItemCount()-1);
     }
 }

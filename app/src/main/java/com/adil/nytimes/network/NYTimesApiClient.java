@@ -2,7 +2,6 @@ package com.adil.nytimes.network;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.adil.nytimes.activities.SearchActivity;
@@ -25,15 +24,22 @@ public class NYTimesApiClient extends ContextWrapper{
 
     private static final String TAG = NYTimesApiClient.class.getSimpleName();
     private static List<Article> listOfArticles;
-    private SharedPreferences prefs;
+    private Settings filter;
+
 
     public NYTimesApiClient(Context base) {
         super(base);
+        filter = Settings.getInstance(this);
     }
 
-    public void fetchArticles(String query){
+    public void fetchArticles(int page){
+        String query = filter.getLastQuery();
+        fetchArticles(query, page);
+    }
+
+    public void fetchArticles(String query, int page){
         AsyncHttpClient httpClient = new AsyncHttpClient();
-        httpClient.get(getUri(query), null, new JsonHttpResponseHandler(){
+        httpClient.get(getUri(query, page), null, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -52,8 +58,7 @@ public class NYTimesApiClient extends ContextWrapper{
         });
     }
 
-    public String getUri(String query){
-        Settings filter = Settings.getInstance(this);
+    public String getUri(String query, int page){
         StringBuilder builder = new StringBuilder("http://api.nytimes.com/svc/search/v2/articlesearch.json?document_type=article&api-key=c9e971792e54e3c1cb491cefce6014c9:1:74339277");
 
         if(filter.getFilterEnabled()){
@@ -65,6 +70,8 @@ public class NYTimesApiClient extends ContextWrapper{
             builder.append("&begin_date=").append(filter.getBeginDate());
         }
         builder.append("&q=").append(query);
+        builder.append("&page=").append(page);
+        filter.setLastQuery(query);
 
         String url = builder.toString();
         Log.d("URL", url);
