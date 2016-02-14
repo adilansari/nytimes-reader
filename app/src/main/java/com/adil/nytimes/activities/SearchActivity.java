@@ -18,6 +18,7 @@ import com.adil.nytimes.R;
 import com.adil.nytimes.adapters.ArticlesAdapter;
 import com.adil.nytimes.interfaces.EndlessRecyclerViewScrollListener;
 import com.adil.nytimes.models.Article;
+import com.adil.nytimes.models.Settings;
 import com.adil.nytimes.network.NYTimesApiClient;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private NYTimesApiClient apiClient;
+    private Settings filter;
     public static ArticlesAdapter articlesAdapter;
 
     @Override
@@ -42,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar_search);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        filter = Settings.getInstance(this);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
         articlesAdapter = new ArticlesAdapter(new ArrayList<Article>());
@@ -81,6 +84,8 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         filterButton = menu.findItem(R.id.action_search_filter_button);
+        if(filter.getFilterEnabled())
+            filterButton.setIcon(R.drawable.ic_filter_orange_24);
         filterButton.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

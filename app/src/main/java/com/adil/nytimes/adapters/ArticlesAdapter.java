@@ -34,6 +34,16 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         this.listOfArticles = articles;
     }
 
+    public void addArticles(List<Article> articlesList){
+        int curSize = this.getItemCount();
+        listOfArticles.addAll(articlesList);
+        this.notifyItemRangeInserted(curSize, this.getItemCount()-1);
+    }
+
+    public void clearData(){
+        listOfArticles.clear();
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -78,9 +88,4 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         }
     }
 
-    public void addArticles(List<Article> articlesList){
-        int curSize = this.getItemCount();
-        listOfArticles.addAll(articlesList);
-        this.notifyItemRangeInserted(curSize, this.getItemCount()-1);
-    }
 }

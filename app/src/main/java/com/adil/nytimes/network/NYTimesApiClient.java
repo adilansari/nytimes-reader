@@ -38,6 +38,9 @@ public class NYTimesApiClient extends ContextWrapper{
     }
 
     public void fetchArticles(String query, int page){
+        if (page == 0)
+            SearchActivity.articlesAdapter.clearData();
+
         AsyncHttpClient httpClient = new AsyncHttpClient();
         httpClient.get(getUri(query, page), null, new JsonHttpResponseHandler(){
             @Override
