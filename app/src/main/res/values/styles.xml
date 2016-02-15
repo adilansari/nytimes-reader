@@ -9,9 +9,8 @@
     </style>
 
     <style name="FilterLabels">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">left</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 
