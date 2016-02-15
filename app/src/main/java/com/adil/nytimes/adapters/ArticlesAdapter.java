@@ -73,7 +73,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
 
-        @Bind(R.id.tvArticleSnippet) TextView tvArticleSnippet;
+        @Bind(R.id.tvImageArticleSnippet) TextView tvArticleSnippet;
         @Bind(R.id.ivArticleThumbnail) ImageView ivArticleThumbnail;
 
         public ViewHolder(View itemView){

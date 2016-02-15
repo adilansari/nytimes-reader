@@ -56,6 +56,10 @@ public class Article implements Parcelable {
         this.sqThumbnailUrl = sqThumbnailUrl;
     }
 
+    public boolean hasImage(){
+        return (this.getWideThumbnailUrl() != null);
+    }
+
     public static Article fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject == null)
             return null;
