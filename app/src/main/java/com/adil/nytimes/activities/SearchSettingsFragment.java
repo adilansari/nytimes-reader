@@ -1,11 +1,14 @@
 package com.adil.nytimes.activities;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,7 +38,6 @@ public class SearchSettingsFragment extends DialogFragment {
     @Bind(R.id.spinnerNewsDesk) Spinner spinnerNewsDesk;
     @Bind(R.id.spinnerSortOrder) Spinner spinnerSortOrder;
     @Bind(R.id.btnSave) Button btnSave;
-    @Bind(R.id.btnReset) Button btnReset;
 
 
     private Settings filter;
@@ -48,6 +50,14 @@ public class SearchSettingsFragment extends DialogFragment {
     public static SearchSettingsFragment newInstance(){
         SearchSettingsFragment frag = new SearchSettingsFragment();
         return frag;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
     }
 
     @Override

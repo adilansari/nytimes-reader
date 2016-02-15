@@ -14,9 +14,8 @@
             android:id="@+id/tvFilterEnabledLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="left"
-            android:text="Enable search filter"/>
+            android:text="Enable search filter"
+            style="@style/FilterLabels"/>
 
         <Switch
             android:id="@+id/switchFilterEnabled"
@@ -37,9 +36,8 @@
             android:id="@+id/tvBeginDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="left"
-            android:text="Begin Date"/>
+            android:text="Begin Date"
+            style="@style/FilterLabels"/>
 
         <TextView
             android:id="@+id/tvDatePicker"
@@ -59,10 +57,9 @@
         <TextView
             android:id="@+id/tvNewsDeskLabel"
             android:text="News desk"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"/>
+            style="@style/FilterLabels"/>
 
         <Spinner
             android:id="@+id/spinnerNewsDesk"
@@ -83,10 +80,9 @@
         <TextView
             android:id="@+id/tvSortOrderLabel"
             android:text="Sort order"
-            android:gravity="left"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" 
+            style="@style/FilterLabels"/>
 
         <Spinner
             android:id="@+id/spinnerSortOrder"

@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="FilterLabels">
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
     <style name="ActionBarTitle">
         <item name="android:layout_gravity">center_horizontal|center_vertical</item>
         <item name="android:text">@string/app_name</item>
