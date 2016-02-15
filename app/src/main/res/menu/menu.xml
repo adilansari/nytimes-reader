@@ -14,5 +14,4 @@
         android:title="Filter"
         app:showAsAction="always"
         android:orderInCategory="101"/>
-
 </menu>
