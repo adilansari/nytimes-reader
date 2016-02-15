@@ -27,30 +27,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <!--<RelativeLayout
-        android:id="@+id/linearFilterEnabled"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <TextView
-            android:id="@+id/toolFilterEnabledLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search filter"
-            style="@style/FilterLabels"/>
-
-        <Switch
-            android:id="@+id/toolSwitchFilterEnabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:gravity="right"/>
-
-    </RelativeLayout>-->
-
     <RelativeLayout
         android:id="@+id/linearDateSegment"
         android:layout_width="match_parent"
