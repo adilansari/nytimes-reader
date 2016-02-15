@@ -24,11 +24,11 @@ import butterknife.ButterKnife;
 /**
  * Created by adil on 2/11/16.
  */
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
+public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static List<Article> listOfArticles;
     private Article article;
-
+    private final int TEXT = 0, IMAGE = 1;
 
     public ArticlesAdapter(List<Article> articles){
         this.listOfArticles = articles;
@@ -48,21 +48,47 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View articleView = layoutInflater.inflate(R.layout.item_image_grid_article, parent, false);
-        ViewHolder holder = new ViewHolder(articleView);
-        return holder;
+    public int getItemViewType(int position) {
+        if (listOfArticles.get(position).hasImage())
+            return IMAGE;
+
+        return TEXT;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        RecyclerView.ViewHolder viewHolder;
+        View articleView;
+
+        switch (viewType){
+            case IMAGE:
+                articleView = layoutInflater.inflate(R.layout.item_image_grid_article, parent, false);
+                viewHolder = new ImgArticleViewHolder(articleView);
+                break;
+            default:
+                articleView = layoutInflater.inflate(R.layout.item_text_grid_layout, parent, false);
+                viewHolder = new TextArticleViewHolder(articleView);
+                break;
+        }
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         article = listOfArticles.get(position);
-        holder.tvArticleSnippet.setText(article.getSnippet());
-        holder.ivArticleThumbnail.setImageResource(0);
-        if (article.getSqThumbnailUrl() != null){
-//            Picasso.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
-            Glide.with(holder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(holder.ivArticleThumbnail);
+
+        switch (viewHolder.getItemViewType()){
+            case IMAGE:
+                ImgArticleViewHolder imgViewHolder = (ImgArticleViewHolder) viewHolder;
+                imgViewHolder.tvImageArticleSnippet.setText(article.getSnippet());
+                imgViewHolder.ivArticleThumbnail.setImageResource(0);
+                Glide.with(imgViewHolder.ivArticleThumbnail.getContext()).load(article.getWideThumbnailUrl()).into(imgViewHolder.ivArticleThumbnail);
+                break;
+            default:
+                TextArticleViewHolder textViewHolder = (TextArticleViewHolder) viewHolder;
+                textViewHolder.tvTextArticleSnippet.setText(article.getSnippet());
+                break;
         }
     }
 
@@ -71,15 +97,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         return listOfArticles.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
-
-        @Bind(R.id.tvImageArticleSnippet) TextView tvArticleSnippet;
-        @Bind(R.id.ivArticleThumbnail) ImageView ivArticleThumbnail;
-
-        public ViewHolder(View itemView){
+    public static abstract class ArticleViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
+        public ArticleViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            ButterKnife.bind(this, itemView);
         }
 
         @Override
@@ -88,6 +109,27 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
             Intent i = new Intent(v.getContext(), ArticleActivity.class);
             i.putExtra("article", Parcels.wrap(article));
             v.getContext().startActivity(i);
+        }
+    }
+
+    public static class ImgArticleViewHolder extends ArticleViewHolder{
+
+        @Bind(R.id.tvImageArticleSnippet) TextView tvImageArticleSnippet;
+        @Bind(R.id.ivArticleThumbnail) ImageView ivArticleThumbnail;
+
+        public ImgArticleViewHolder(View itemView){
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public static class TextArticleViewHolder extends ArticleViewHolder{
+
+        @Bind(R.id.tvTextArticleSnippet) TextView tvTextArticleSnippet;
+
+        public TextArticleViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
