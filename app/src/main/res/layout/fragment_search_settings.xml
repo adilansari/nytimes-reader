@@ -1,40 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="7"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/linearFilterEnabled"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_weight="2"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:orientation="horizontal">
+        style="@style/DialogToolbar">
 
         <TextView
             android:id="@+id/tvFilterEnabledLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Search filter"
-            style="@style/FilterLabels"/>
+            style="@style/FilterLabels.Toolbar"/>
 
         <Switch
             android:id="@+id/switchFilterEnabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_gravity="right"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--<RelativeLayout
+        android:id="@+id/linearFilterEnabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/toolFilterEnabledLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search filter"
+            style="@style/FilterLabels"/>
+
+        <Switch
+            android:id="@+id/toolSwitchFilterEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:gravity="right"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/linearDateSegment"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:orientation="horizontal">
 
         <TextView
@@ -46,6 +68,8 @@
 
         <TextView
             android:id="@+id/tvDatePicker"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
@@ -55,8 +79,9 @@
 
     <RelativeLayout
         android:id="@+id/linearNewsDeskSection"
-        android:layout_weight="1"
         android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -79,8 +104,9 @@
 
     <RelativeLayout
         android:id="@+id/linearSortOrderSection"
-        android:layout_weight="1"
         android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -104,8 +130,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:weightSum="3"
-        android:layout_weight="2"
         android:gravity="bottom">
 
         <TextView
