@@ -40,6 +40,7 @@ The following **additional** features are implemented:
 * [x] StaggeredGridLayout with rounded object views.
 * [x] Customised font in action bar for more original feel.
 * [x] Filter enable/disable switch in the dialog fragment toolbar itself.
+* [x] Used Parceler to serialize object for sharing among activities through intent.
 
 ## Video Walkthrough
 
@@ -57,7 +58,9 @@ Describe any challenges encountered while building the app.
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
-
+- [Calligraphy](https://github.com/chrisjenx/Calligraphy) - Using custom fonts in Android
+- [Butter Knife](http://jakewharton.github.io/butterknife/) - View Injection library for Android
+- [Parceler](https://parceler.org/) - Model serializer library.
 ## License
 
     Copyright [2016] [Adil Ansari]
